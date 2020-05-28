@@ -85,6 +85,16 @@ python kyoto_bus_schedule_parser.py <フォルダーパス>
 }
 ```
 
+## 整形済みデータへのアクセス
+
+GitHubのAPIを利用することで整形済みデータのRawファイルにアクセスすることができます。  
+
+下記の例を参考にご利用ください。  
+
+[停留所情報 : https://raw.githubusercontent.com/muilab/kyoto-bus-schedule/master/json/busstop.json](https://raw.githubusercontent.com/muilab/kyoto-bus-schedule/master/json/busstop.json)
+
+[停留所別時刻表(京都駅前 発 101号系統  二条城・北野天満宮・金閣寺行き)：https://raw.githubusercontent.com/muilab/kyoto-bus-schedule/master/json/061225.json](https://raw.githubusercontent.com/muilab/kyoto-bus-schedule/master/json/061225.json)
+
 ## 環境
 
 * python3.7.6
