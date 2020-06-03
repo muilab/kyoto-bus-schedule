@@ -104,6 +104,21 @@ class BusStopInfoParser(HTMLParser):
 
             elif name == 'class' and value == 'keito-name':
                 self._pre_line_name = True
+                if self._line_name != '':
+                    self._line_name += '号系統/'
+
+            elif name == 'class' and value == 'keito-name-small keito-name':
+                self._pre_line_name = True
+                if self._line_name != '':
+                    self._line_name += '号系統/'
+
+            elif name == 'class' and value == 'keito-sub keito-sub-express':
+                self._pre_line_name = True
+                if self._line_name != '':
+                    self._line_name += '号系統/'
+
+            elif name == 'class' and value == 'keito-name keito-name-menu':
+                self._pre_line_name = True
 
             elif name == 'class' and value == "tt-dest dat-dest":
                 self._pre_destination = True
@@ -121,7 +136,7 @@ class BusStopInfoParser(HTMLParser):
         # print("Data     :", data)
 
         if self._pre_line_name is True:
-            self._line_name = data
+            self._line_name += data
             self._clear_flags()
 
         elif self._pre_destination is True:
@@ -143,3 +158,7 @@ class BusStopInfoParser(HTMLParser):
             "destination" : self._destination,
             "destination_en" : self._destination_en
         })
+
+        self._line_name = ''
+        self._destination = ''
+        self._destination_en = ''

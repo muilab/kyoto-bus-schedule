@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../css/layout-bus.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="../js/html5shiv/html5shiv.min.js"></script>
+        <script src="../js/respond/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="../js/jquery_import.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <!-- user script -->
+    <script src="../js/tt_utility_bus.js"></script>
+    <script type="text/javascript">
+    <!-- 
+        $(document).ready(function(){
+            scrollUp();
+            dispStopInfo('061');
+            setBsCookie('061','京都駅前');
+            movPage();
+            chkKeitoName();
+            chkMaenori();
+        });
+    -->
+    </script>
+    <title>京都市バス時刻表：京都駅前</title>
+    <script src="../js/ga_tracking.js"></script>
+</head><body>
+    <nav class="header navbar navbar-inverse noprint" role="navigation">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#mainNav">
+                <span class="sr-only">ナビゲーション</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#main-contents" class="navbar-brand" title="このページの本文へ移動">京都市バス時刻表</a>
+        </div>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">時刻表切替 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../bustime.htm">市バス</a></li>
+                        <li><a href="../../tikadia/tikatime.htm">地下鉄</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">停留所検索 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mnukana.htm">読みがな検索</a></li>
+                        <li><a href="../keitou/keitou.htm">系統番号検索</a></li>
+                        <li><a href="../busstop/bus_stop.htm">市バス主要停留所案内図</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>    <div class="docs-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-9">
+                    <ol class="breadcrumb noprint">
+                        <li><a href="http://www.city.kyoto.lg.jp/kotsu/">交通局</a></li>
+                        <li><a href="../bustime.htm">ハイパー市バスダイヤ</a></li>
+                        <li><a href="mnukana.htm">読みがな検索</a></li>
+                        <li><a href="./ki.htm">【き】で始まる停留所</a></li>
+                        <li class="active">京都駅前</li>
+                    </ol>
+                    <div class="page-header stop-hd" id="main-contents">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 text-center">
+                                <img src="../img/bus_stop_sign_1.png" alt="市バス停留所" class="stop-img">
+                            </div>
+                            <div class="col-lg-9 col-md-9 stop-title">
+                                <div id="stop-info"></div>
+                                <span class="stop-hd-kana">きょうとえきまえ</span><br>
+                                <h1 class="h2 stop-hd-ja">京都駅前</h1>
+                                <span class="stop-hd-en" lang="en-US">Kyoto Sta.</span><br>
+                                <span class="stop-hd-sc" lang="zh-CN"></span><br>
+                                <span class="stop-hd-tc" lang="zh-TW"></span><br>
+                                <span class="stop-hd-ko" lang="ko"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:2.0em;">ご覧になりたい系統番号，行先の<a href="#" class="btn btn-default"><img src="../img/icon/clock32.png" class="" alt="時計のピクトグラム"></a>ボタンを押すと，時刻表が表示されます。</div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="panel panel-primary menulist">
+                        <div class="panel-heading"><p class="h4 panel-title">Menu</p></div>
+                        <div class="list-group">
+                            <a href="#ttbl" class="list-group-item">時刻表</a>
+                            <a href="#" id="stop-pos" class="list-group-item">周辺地図（Googleマップ）<br><span class="small">（マーカーは正確な停留所の位置を示すものではありません。）</span></a>
+                            <a href="#" id="bls-link" class="list-group-item">この停留所のバス接近情報</a>
+                            <a href="ki.htm" class="list-group-item">【き】で始まる停留所</a>
+                        </div>
+                    </div>
+                    
+                    <div class="modal" id="modal-dlg" tabindex="-1" role="dialog" aria-hidden="true" data-show="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="modal-dlg-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="ttbl">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-pole"><h2 class="h3 element-invisible">のりば</h2></div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>4</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061211.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 四条河原町・上賀茂神社行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-kawaramachi">河原町通  Kawaramachi-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">四条河原町・上賀茂神社</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kamigamo-jinja Shrine</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>5</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061212.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 銀閣寺･岩倉行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-shirakawa">白川通  Shirakawa-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">岡崎公園<br>平安神宮</span><span class="tt-dest dat-dest">銀閣寺･岩倉</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ginkakuji Temple Via Heian-jingu Shrine</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>6</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061213.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 佛教大学・玄琢行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-senbon">千本通  Senbon-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">佛教大学・玄琢</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Bukkyo Univ.</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>17</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061214.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 四条河原町･銀閣寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-kawaramachi">河原町通  Kawaramachi-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">四条河原町･銀閣寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ginkakuji　Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-norm'>★深夜バス★</div><div class='keito-name keito-name-menu'>MN17</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061215.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 四条河原町･銀閣寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-kawaramachi">河原町通  Kawaramachi-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">四条河原町･銀閣寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ginkakuji　Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>104</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061216.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 四条河原町・三条京阪行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-kawaramachi">河原町通  Kawaramachi-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">四条河原町・三条京阪</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Shijo Kawaramachi</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061217.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 四条河原町・北大路バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-kawaramachi">河原町通  Kawaramachi-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">四条河原町・北大路バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kitaoji Bus Terminal Via Shijo Kawaramachi</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>206</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061218.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 大徳寺・北大路バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-senbon">千本通  Senbon-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">大徳寺・北大路バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kitaoji Bus Terminal Via Daitokuji Temple</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-pole"><h2 class="h3 element-invisible">のりば</h2></div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>9</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061221.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 二条城・西賀茂車庫行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-horikawa">堀川通  Horikawa-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">二条城・西賀茂車庫</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Nishigamo Via Nijo-jo Castle</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>50</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061222.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 立命館大学行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">二条城<br>北野天満宮</span><span class="tt-dest dat-dest">立命館大学</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ritsumeikan Univ.</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name'>86</div></div>
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name'>88</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061223.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 水族館・鉄道博物館行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">水族館・鉄道博物館</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Aquarium / Railway Museum</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>101</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061225.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 二条城・北野天満宮・金閣寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">二条城・北野天満宮・金閣寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kinkakuji Temple Via Nijo-jo Castle</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>104</div></div>
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>110</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061226.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 水族館・鉄道博物館行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">水族館・鉄道博物館</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Aquarium / Railway Museum</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061229.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 金閣寺・北大路バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-nishioji"> 西大路通  Nishioji-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">金閣寺・北大路バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kitaoji Bus Terminal Via Kinkakuji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-sub keito-sub-norm'>★深夜バス★</div><div class='keito-name keito-name-menu'>MN205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612210.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 金閣寺・烏丸北大路行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-nishioji"> 西大路通  Nishioji-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">金閣寺・烏丸北大路</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Karasuma Kitaoji Via Kinkakuji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-sub keito-sub-rapid'>快速 Rapid</div><div class='keito-name keito-name-menu'>快速205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612211.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 立命館大学行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-nishioji"> 西大路通  Nishioji-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">北野白梅町</span><span class="tt-dest dat-dest">立命館大学</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ritsumeikan Univ.</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>208</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612212.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 西大路駅行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-nishioji"> 西大路通  Nishioji-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">西大路駅</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Nishioji Sta.</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>111</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612213.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 二条城・金閣寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">二条城・金閣寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kinkakuji Temple Via Nijo-jo Castle</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-pole"><h2 class="h3 element-invisible">のりば</h2></div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>16</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061231.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 東寺西門・南区総合庁舎行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">東寺西門・南区総合庁舎</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Toji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number non-flat"><div class='keito-name'>19</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061232.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 中書島・横大路車庫行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">京阪国道</span><span class="tt-dest dat-dest">中書島・横大路車庫</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Chushojima</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name'>28</div></div>
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name'>臨</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061233.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 嵐山･大覚寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-horikawa">堀川通  Horikawa-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">嵐山･大覚寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Daikakuji Temple Via Arashiyama</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-2 keito-number non-flat"><div class='keito-name'>33</div></div>
+                <div class="tt-keito-number-2 keito-number non-flat"><div class='keito-name'>特33</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061234.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 洛西バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">桂駅東口<br>三ノ宮</span><span class="tt-dest dat-dest">洛西バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Rakusai Bus Terminal</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number non-flat"><div class='keito-name'>42</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061235.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 阪急洛西口駅前行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">中久世<br>JR桂川駅</span><span class="tt-dest dat-dest">阪急洛西口駅前</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Rakusaiguchi Sta.</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number non-flat"><div class='keito-name'>73</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061236.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 洛西バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">西京極<br>千代原口</span><span class="tt-dest dat-dest">洛西バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Rakusai Bus Terminal</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>75</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061237.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 映画村・山越行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">映画村・山越</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Eigamura</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>78</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061238.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 久世工業団地行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">久世工業団地</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kuze Kogyodanchi</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>81</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061239.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 中書島・横大路車庫行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">竹田駅東口</span><span class="tt-dest dat-dest">中書島・横大路車庫</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Chushojima</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>105</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612310.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 稲荷大社･竹田駅東口行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">稲荷大社･竹田駅東口</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Takeda Sta. Via Inari-taisha Shrine</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612311.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 九条車庫行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">九条車庫</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kujo　Shako</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-sub keito-sub-rapid'>快速 Rapid</div><div class='keito-name keito-name-menu'>快速205</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612312.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 九条車庫行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">九条車庫</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Kujo　Shako</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-trans'>South</div><div class='keito-name keito-name-menu'>南5</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="0612313.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 稲荷大社･竹田駅東口行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">稲荷大社･竹田駅東口</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Takeda Sta. Via Inari-taisha Shrine</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-pole"><h2 class="h3 element-invisible">のりば</h2></div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>26</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061241.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 御室仁和寺・山越行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-nishioji"> 西大路通  Nishioji-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">北野白梅町</span><span class="tt-dest dat-dest">御室仁和寺・山越</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Omuro Ninnaji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name'>86</div></div>
+                <div class="tt-keito-number-2 keito-number flat"><div class='keito-name-small keito-name'>臨(楽洛東山ライン)</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061242.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 清水寺･祇園・三条京阪行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">清水寺･祇園・三条京阪</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Sanjo Keihan Via Kiyomizu-dera Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name'>88</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061243.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 東福寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">東福寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Tofukuji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>100</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061244.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 清水寺･銀閣寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-maenori">前乗り・運賃先払い </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">清水寺･銀閣寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Ginkakuji Temple Via Kiyomizu-dera Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>106</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061245.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 清水寺･祇園行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">清水寺･祇園</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Gion Via Kiyomizu-dera Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-sub keito-sub-express'>急行 Exp.</div><div class='keito-name keito-name-menu'>110</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061246.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 祇園･平安神宮行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">祇園･平安神宮</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Heian-jingu Shrine Via Gion</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>206</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061247.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 祇園・北大路バスターミナル行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">三十三間堂<br>清水寺</span><span class="tt-dest dat-dest">祇園・北大路バスターミナル</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Gion Via Kiyomizu-dera Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number loop"><div class='keito-name'>208</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061248.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 泉涌寺・東福寺行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-higashiyama">東山通  Higashiyama-dori St.</div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via">博物館<br>三十三間堂</span><span class="tt-dest dat-dest">泉涌寺・東福寺</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Tofukuji Temple</div>
+                </div>
+            </div>
+        </div>			        
+        <div class="row row-tt-keito">
+            
+            <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8 cell-center tt-bg-keito-menu">
+                <div class="tt-keito-number-1 keito-number flat"><div class='keito-name-small keito-name'>京大快速</div></div>
+            </div>
+					
+            <div class="col-lg-1 col-md-1 col-sm-4 col-xs-4 col-lg-push-8 col-md-push-8 cell-center">
+                <a href="061249.htm" class="btn btn-default"><img src="../img/icon/clock32.png" class="tt-btn-img" alt="系統 京大病院・京大正門行きの時刻表を見る"></a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-lg-pull-1 col-md-pull-1">
+                <div class="cell-left-padding-1">
+                    <div class="dat-line line-null"> </div>
+                    <div class="tt-dest-title"><span class="tt-dest-via dat-via"></span><span class="tt-dest dat-dest">京大病院・京大正門</span>
+                        <div class="tt-iki"><span class="tt-super">行</span><span class="tt-sub">き</span></div>
+                    </div>
+                    <div class="dest-en">Rapid　Kyoto Univ. Hospital / Main Gate</div>
+                </div>
+            </div>
+        </div>    </div>
+    <footer class="footer noprint">
+    <div class="footer-logo">京都市バス時刻表<br>&copy; 1997 Kyoto Municipal Transportation Bureau.</div>
+    </footer>
+</body>
+</html>
